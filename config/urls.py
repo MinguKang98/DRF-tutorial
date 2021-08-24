@@ -17,12 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
-from myapp import views
+from people import views as perople_views
+from movies import views as movie_views
 
-router=routers.DefaultRouter()
-router.register(r'persons',views.PersonViewSet)
+router = routers.DefaultRouter()
+router.register(r"people", perople_views.PersonViewSet)
+router.register(r"movie", movie_views.MoiveViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    url(r'^',include(router.urls)),
+    path("admin/", admin.site.urls),
+    path("", include(router.urls)),
+    path("categories/", include("categories.urls")),
 ]
