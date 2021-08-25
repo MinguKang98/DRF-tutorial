@@ -27,5 +27,5 @@ router.register(r"movie", movie_views.MoiveViewSet)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include(router.urls)),
-    path("categories/", include("categories.urls")),
+    path("", include("categories.urls")),
 ]
