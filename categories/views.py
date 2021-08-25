@@ -2,11 +2,12 @@ from django import http
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+from rest_framework.decorators import api_view
 from . import models
 from . import serializers
 
 # FBV
-@csrf_exempt
+@api_view(["GET", "POST"])
 def category_list(request):
     if request.method == "GET":
         category = models.Category.objects.all()
@@ -22,7 +23,7 @@ def category_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 
-@csrf_exempt
+@api_view(["GET", "PUT", "DELETE"])
 def category_detail(request, pk):
     try:
         category = models.Category.objects.get(pk=pk)
