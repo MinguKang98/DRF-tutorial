@@ -2,3 +2,5 @@
 secrets.json
 
 avatar
+
+db.sqlite3
