@@ -23,17 +23,17 @@ class CategoryList(APIView):
 class CategoryDetail(APIView):
     def get_object(request, pk):
         try:
-            category = models.Category.objects.get(pk=pk)
+            return models.Category.objects.get(pk=pk)
         except models.Category.DoesNotExist:
             return Http404
 
     def get(self, request, pk, format=None):
-        category = models.Category.objects.get(pk=pk)
+        category = self.get_object(pk=pk)
         serializer = serializers.CategorySerializer(category)
-        return Response(serializers.data)
+        return Response(serializer.data)
 
     def put(self, request, pk, format=None):
-        category = models.Category.objects.get(pk=pk)
+        category = self.get_object(pk=pk)
         serializer = serializers.CategorySerializer(category, data=request)
         if serializer.is_valid():
             serializer.save()
@@ -41,6 +41,6 @@ class CategoryDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
-        category = models.Category.objects.get(pk=pk)
+        category = self.get_object(pk=pk)
         category.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
