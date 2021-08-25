@@ -1,3 +1,7 @@
 from django.contrib import admin
+from . import models
 
-# Register your models here.
+
+@admin.register(models.Person)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "kind")
