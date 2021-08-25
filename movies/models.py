@@ -7,7 +7,7 @@ class Movie(core_models.TimeStampedModel):
     year = models.IntegerField()
     cover_image = models.ImageField(blank=True)
     # rating
-    # category
+    category = models.ManyToManyField("categories.Category")
     running_time = models.IntegerField()
     director = models.ForeignKey(
         "people.Person", on_delete=models.CASCADE, related_name="movies"
